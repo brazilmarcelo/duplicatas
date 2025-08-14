@@ -1,9 +1,10 @@
+import React from 'react';
 
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom/client';
+// As importações de React e ReactDOM foram removidas, pois agora são carregadas globalmente no index.html.
 
 // Declare global variables from external scripts to inform TypeScript
 declare const jspdf: any;
+declare const ReactDOM: any; // Declarando ReactDOM globalmente
 declare global {
     interface Window {
         lucide: {
@@ -16,7 +17,7 @@ declare global {
 
 // --- Lógica de hooks/useLocalStorage.ts ---
 function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => void] {
-    const [storedValue, setStoredValue] = useState<T>(() => {
+    const [storedValue, setStoredValue] = React.useState<T>(() => {
         if (typeof window === 'undefined') {
             return initialValue;
         }
@@ -41,7 +42,7 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((val
         }
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         try {
             const item = window.localStorage.getItem(key);
             if (item) {
@@ -304,7 +305,7 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
-    useEffect(() => {
+    React.useEffect(() => {
         const handleEsc = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
                 onClose();
@@ -343,9 +344,9 @@ interface CreditorManagerProps {
 const CreditorManager: React.FC<CreditorManagerProps> = ({ onSelectCreditor, onClose }) => {
     const emptyCreditor: Creditor = { name: '', doc: '', address: '', city: '', state: '', zip: '' };
     const [creditors, setCreditors] = useLocalStorage<Creditor[]>('creditors', []);
-    const [newCreditor, setNewCreditor] = useState<Creditor>(emptyCreditor);
+    const [newCreditor, setNewCreditor] = React.useState<Creditor>(emptyCreditor);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (window.lucide) {
             window.lucide.createIcons();
         }
@@ -499,10 +500,10 @@ function App() {
         value: '',
         paymentPlace: '',
     };
-    const [data, setData] = useState<DuplicateData>(initialDuplicateState);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [data, setData] = React.useState<DuplicateData>(initialDuplicateState);
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (window.lucide) {
             window.lucide.createIcons();
         }
