@@ -1,0 +1,5 @@
+{
+  "name": "Gerador de Duplicata",
+  "description": "Uma aplicação web para criar, gerenciar e gerar PDFs de duplicatas mercantis. Permite salvar dados do credor para reutilização, agilizando o processo de emissão de documentos.",
+  "requestFramePermissions": []
+}
